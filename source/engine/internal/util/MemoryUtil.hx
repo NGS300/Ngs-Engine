@@ -1,7 +1,6 @@
 package engine.internal.util;
 /**
  * Utilities for working with the garbage collector.
- *
  * HXCPP is built on Immix.
  * HTML5 builds use the browser's built-in mark-and-sweep and JS has no APIs to interact with it.
  * @see https://www.cs.cornell.edu/courses/cs6120/2019fa/blog/immix/
@@ -45,8 +44,7 @@ class MemoryUtil{
     * @return Int
     */
     public static function getMemoryUsed():Int{
-        #if cpp
-        // There is also Gc.MEM_INFO_RESERVED, MEM_INFO_CURRENT, and MEM_INFO_LARGE.
+        #if cpp // There is also Gc.MEM_INFO_RESERVED, MEM_INFO_CURRENT, and MEM_INFO_LARGE.
         return cpp.vm.Gc.memInfo(cpp.vm.Gc.MEM_INFO_USAGE);
         #else
         return openfl.system.System.totalMemory;

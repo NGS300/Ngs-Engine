@@ -3,9 +3,7 @@ package;
 import engine.internal.debug.MemoryCounter;
 import engine.internal.debug.FPSCounter;
 import flixel.FlxGame;
-import flixel.FlxState;
 import haxe.ui.Toolkit;
-import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.Lib;
@@ -16,7 +14,7 @@ import openfl.net.NetStream;
  * The Base class which initializes HaxeFlixel and starts the game in its initial state.
 */
 class Base extends Sprite{
-    public var settings = {
+    public var settings ={
         initialState: Test,
         fullscreen: false,
         splash: true,
@@ -50,33 +48,37 @@ class Base extends Sprite{
     public static var fpsCounter:FPSCounter;
     public static var memoryCounter:MemoryCounter;
     function setup():Void{
-        Toolkit.init();
-        Toolkit.theme = 'dark'; // don't be cringe
-        // Toolkit.theme = 'light'; // embrace cringe
-        Toolkit.autoScale = false;
-        // Don't focus on UI elements when they first appear.
-        haxe.ui.focus.FocusManager.instance.autoFocus = false;
-        haxe.ui.tooltips.ToolTipManager.defaultDelay = 200;
-        memoryCounter = new MemoryCounter(10, 3, 0xFFFFFF);
+        initHaxeUI();
         fpsCounter = new FPSCounter(10, 14, 0xFFFFFF);
+        memoryCounter = new MemoryCounter(10, 2, 0xFFFFFF);
         //Save.load();
         var game:FlxGame = new FlxGame(settings.width, settings.height, settings.initialState, settings.rate, settings.rate, settings.splash, settings.fullscreen);
         @:privateAccess
-        //game._customSoundTray = funkin.ui.options.FunkinSoundTray;
+        game._customSoundTray = engine.internal.ui.SoundTray;
         addChild(game);
 
-        /*#if debug
-        game.debugger.interaction.addTool(new funkin.util.TrackerToolButtonUtil());
-        #end*/
+        #if debug
+        game.debugger.interaction.addTool(new engine.internal.util.TrackerToolButtonUtil());
+        #end
+        addChild(fpsCounter);
         #if !html5
         addChild(memoryCounter);
         #end
-        addChild(fpsCounter);
 
         #if hxcpp_debug_server
         trace('hxcpp_debug_server is enabled! You can now connect to the game with a debugger.');
         #else
         trace('hxcpp_debug_server is disabled! This build does not support debugging.');
         #end
+    }
+    function initHaxeUI():Void{
+        // Calling this before any HaxeUI components get used is important:
+        // - It initializes the theme styles.
+        // - It scans the class path and registers any HaxeUI components.
+        Toolkit.init();
+        Toolkit.theme = 'dark'; // don't be cringe
+        Toolkit.autoScale = false;
+        haxe.ui.focus.FocusManager.instance.autoFocus = false; // Don't focus on UI elements when they first appear.
+        haxe.ui.tooltips.ToolTipManager.defaultDelay = 200;
     }
 }
