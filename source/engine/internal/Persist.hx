@@ -7,7 +7,33 @@ import lime.app.Application;
 /**
  * A store of unchanging, globally relevant values.
 */
-class Persist{
+class Persist{    
+    /**
+     * REPOSITORY DATA
+    */
+    // ==============================
+
+    /**
+     * The current Git branch.
+    */
+    public static final GIT_BRANCH:String = engine.internal.util.macro.GitCommit.getGitBranch();
+
+    /**
+     * The current Git commit hash.
+    */
+    public static final GIT_HASH:String = engine.internal.util.macro.GitCommit.getGitCommitHash();
+    public static final GIT_HAS_LOCAL_CHANGES:Bool = engine.internal.util.macro.GitCommit.getGitHasLocalChanges();
+
+    /**
+     * API DATA
+    */
+    // ==============================
+    public static var discordAPI = '966024519271710780';
+    public static var gamejoltAPI ={
+        id: '702509',
+        key: '1c9d49cd39dd3321a3d49ad1a23240ee'
+    };
+
     /**
      * ENGINE DATA INFO's
     */
@@ -17,7 +43,7 @@ class Persist{
      * The title of the game, for debug printing purposes.
      * Change this if you're making an engine/mod.
     */
-    public static final TITLE:String = "Friday Night Funkin' NGS Engine";
+    public static final TITLE:String = "Friday Night Funkin' NG'S Engine";
 
 
     /**
@@ -50,22 +76,6 @@ class Persist{
         return 'v${Application.current.meta.get('version')}' + VERSION_SUFFIX;
     }
     #end
-
-    /**
-     * REPOSITORY DATA
-    */
-    // ==============================
-
-    /**
-     * The current Git branch.
-    */
-    public static final GIT_BRANCH:String = engine.internal.util.macro.GitCommit.getGitBranch();
-
-    /**
-     * The current Git commit hash.
-    */
-    public static final GIT_HASH:String = engine.internal.util.macro.GitCommit.getGitCommitHash();
-    public static final GIT_HAS_LOCAL_CHANGES:Bool = engine.internal.util.macro.GitCommit.getGitHasLocalChanges();
 
     /**
      * TIMING

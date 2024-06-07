@@ -1,5 +1,7 @@
 package;
 
+import engine.internal.api.Gamejolt;
+import engine.internal.api.Discord;
 import engine.internal.debug.MemoryCounter;
 import engine.internal.debug.FPSCounter;
 import flixel.FlxGame;
@@ -58,18 +60,20 @@ class Base extends Sprite{
         addChild(game);
 
         #if debug
-        game.debugger.interaction.addTool(new engine.internal.util.TrackerToolButtonUtil());
+            game.debugger.interaction.addTool(new engine.internal.util.TrackerToolButtonUtil());
         #end
         addChild(fpsCounter);
         #if !html5
-        addChild(memoryCounter);
+            addChild(memoryCounter);
         #end
 
         #if hxcpp_debug_server
-        trace('hxcpp_debug_server is enabled! You can now connect to the game with a debugger.');
+            trace('hxcpp_debug_server is enabled! You can now connect to the game with a debugger.');
         #else
-        trace('hxcpp_debug_server is disabled! This build does not support debugging.');
+            trace('hxcpp_debug_server is disabled! This build does not support debugging.');
         #end
+		Client.initialize();
+        Gamejolt.initialize();
     }
     function initHaxeUI():Void{
         // Calling this before any HaxeUI components get used is important:

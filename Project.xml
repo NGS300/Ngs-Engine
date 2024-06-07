@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
-	<app title="Friday Night Funkin': NGS Engine" file="NGE" packageName="com.nge.fnf" package="com.nge.fnf" main="Base" version="1.0" company="NGS300" />
+	<app title="Friday Night Funkin': NG'S Engine" file="NGE" packageName="com.nge.fnf" package="com.nge.fnf" main="Base" version="1.0" company="NGS300" />
 
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
 	<app preloader="flixel.system.FlxPreloader" />
@@ -68,7 +68,8 @@
 	<haxelib name="polymod" /> <!-- Modding framework -->
 	<haxelib name="flxanimate" /> <!-- Texture atlas rendering -->
 	<haxelib name="hxCodec" if="desktop" unless="hl" /> <!-- Video playback -->
-	<!--<haxelib name="discord_rpc" if="desktop"/> -->
+	<haxelib name="discord_rpc" if="desktop"/>
+	<haxelib name="hxgamejolt-api" if="desktop"/>
 	<haxelib name="json2object" /> <!-- JSON parsing -->
 	<haxelib name="thx.semver" /> <!-- Version string handling -->
 
