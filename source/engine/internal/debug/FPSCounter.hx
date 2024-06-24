@@ -6,11 +6,11 @@ import openfl.events.Event;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 #if gl_stats
-import openfl.display._internal.stats.Context3DStats;
-import openfl.display._internal.stats.DrawCallContext;
+	import openfl.display._internal.stats.Context3DStats;
+	import openfl.display._internal.stats.DrawCallContext;
 #end
 #if flash
-import openfl.Lib;
+	import openfl.Lib;
 #end
 
 /**
@@ -18,8 +18,8 @@ import openfl.Lib;
 	the current frame rate of an OpenFL project
 **/
 #if !openfl_debug
-@:fileXml('tags="haxe,release"')
-@:noDebug
+	@:fileXml('tags="haxe,release"')
+	@:noDebug
 #end
 class FPSCounter extends TextField{
 	/**

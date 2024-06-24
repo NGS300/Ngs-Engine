@@ -108,7 +108,7 @@ class Paths{
     }
 
     public static function font(key:String):String{
-        return 'assets/fonts/$key';
+        return 'assets/shared/fonts/$key';
     }
 
     public static function ui(key:String, ?library:String):String{

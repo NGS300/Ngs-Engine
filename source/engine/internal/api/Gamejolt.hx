@@ -31,13 +31,19 @@ class Gamejolt extends GameJolt{
 
         public static function initialize(){
             if (!GameJolt.initialized){
-                GameJolt.init(jolt.id, jolt.key);
-                #if debug
-                    trace('Gamejolt API Initialize');
-                #end
+                if (jolt.id != '' && jolt.key != ''){
+                    GameJolt.init(jolt.id, jolt.key);
+                    #if debug
+                        trace('Gamejolt API Initialize');
+                    #end
+                }else{
+                    #if debug
+                        trace('Gamejolt API Failed Initialize');
+                    #end
+                }
             }else{
                 #if debug
-                    trace('Gamejolt API is Running');
+                    trace('Gamejolt API Running');
                 #end
             }
         }

@@ -12,31 +12,31 @@ package engine.internal.util;
 class MemoryUtil{
     public static function buildGCInfo():String{
         #if cpp
-        var result:String = 'HXCPP-Immix:';
-        result += '\n- Memory Used: ${cpp.vm.Gc.memInfo(cpp.vm.Gc.MEM_INFO_USAGE)} bytes';
-        result += '\n- Memory Reserved: ${cpp.vm.Gc.memInfo(cpp.vm.Gc.MEM_INFO_RESERVED)} bytes';
-        result += '\n- Memory Current Pool: ${cpp.vm.Gc.memInfo(cpp.vm.Gc.MEM_INFO_CURRENT)} bytes';
-        result += '\n- Memory Large Pool: ${cpp.vm.Gc.memInfo(cpp.vm.Gc.MEM_INFO_LARGE)} bytes';
-        result += '\n- HXCPP Debugger: ${#if HXCPP_DEBUGGER 'Enabled' #else 'Disabled' #end}';
-        result += '\n- HXCPP Exp Generational Mode: ${#if HXCPP_GC_GENERATIONAL 'Enabled' #else 'Disabled' #end}';
-        result += '\n- HXCPP Exp Moving GC: ${#if HXCPP_GC_MOVING 'Enabled' #else 'Disabled' #end}';
-        result += '\n- HXCPP Exp Moving GC: ${#if HXCPP_GC_DYNAMIC_SIZE 'Enabled' #else 'Disabled' #end}';
-        result += '\n- HXCPP Exp Moving GC: ${#if HXCPP_GC_BIG_BLOCKS 'Enabled' #else 'Disabled' #end}';
-        result += '\n- HXCPP Debug Link: ${#if HXCPP_DEBUG_LINK 'Enabled' #else 'Disabled' #end}';
-        result += '\n- HXCPP Stack Trace: ${#if HXCPP_STACK_TRACE 'Enabled' #else 'Disabled' #end}';
-        result += '\n- HXCPP Stack Trace Line Numbers: ${#if HXCPP_STACK_LINE 'Enabled' #else 'Disabled' #end}';
-        result += '\n- HXCPP Pointer Validation: ${#if HXCPP_CHECK_POINTER 'Enabled' #else 'Disabled' #end}';
-        result += '\n- HXCPP Profiler: ${#if HXCPP_PROFILER 'Enabled' #else 'Disabled' #end}';
-        result += '\n- HXCPP Local Telemetry: ${#if HXCPP_TELEMETRY 'Enabled' #else 'Disabled' #end}';
-        result += '\n- HXCPP C++11: ${#if HXCPP_CPP11 'Enabled' #else 'Disabled' #end}';
-        result += '\n- Source Annotation: ${#if annotate_source 'Enabled' #else 'Disabled' #end}';
+            var result:String = 'HXCPP-Immix:';
+            result += '\n- Memory Used: ${cpp.vm.Gc.memInfo(cpp.vm.Gc.MEM_INFO_USAGE)} bytes';
+            result += '\n- Memory Reserved: ${cpp.vm.Gc.memInfo(cpp.vm.Gc.MEM_INFO_RESERVED)} bytes';
+            result += '\n- Memory Current Pool: ${cpp.vm.Gc.memInfo(cpp.vm.Gc.MEM_INFO_CURRENT)} bytes';
+            result += '\n- Memory Large Pool: ${cpp.vm.Gc.memInfo(cpp.vm.Gc.MEM_INFO_LARGE)} bytes';
+            result += '\n- HXCPP Debugger: ${#if HXCPP_DEBUGGER 'Enabled' #else 'Disabled' #end}';
+            result += '\n- HXCPP Exp Generational Mode: ${#if HXCPP_GC_GENERATIONAL 'Enabled' #else 'Disabled' #end}';
+            result += '\n- HXCPP Exp Moving GC: ${#if HXCPP_GC_MOVING 'Enabled' #else 'Disabled' #end}';
+            result += '\n- HXCPP Exp Moving GC: ${#if HXCPP_GC_DYNAMIC_SIZE 'Enabled' #else 'Disabled' #end}';
+            result += '\n- HXCPP Exp Moving GC: ${#if HXCPP_GC_BIG_BLOCKS 'Enabled' #else 'Disabled' #end}';
+            result += '\n- HXCPP Debug Link: ${#if HXCPP_DEBUG_LINK 'Enabled' #else 'Disabled' #end}';
+            result += '\n- HXCPP Stack Trace: ${#if HXCPP_STACK_TRACE 'Enabled' #else 'Disabled' #end}';
+            result += '\n- HXCPP Stack Trace Line Numbers: ${#if HXCPP_STACK_LINE 'Enabled' #else 'Disabled' #end}';
+            result += '\n- HXCPP Pointer Validation: ${#if HXCPP_CHECK_POINTER 'Enabled' #else 'Disabled' #end}';
+            result += '\n- HXCPP Profiler: ${#if HXCPP_PROFILER 'Enabled' #else 'Disabled' #end}';
+            result += '\n- HXCPP Local Telemetry: ${#if HXCPP_TELEMETRY 'Enabled' #else 'Disabled' #end}';
+            result += '\n- HXCPP C++11: ${#if HXCPP_CPP11 'Enabled' #else 'Disabled' #end}';
+            result += '\n- Source Annotation: ${#if annotate_source 'Enabled' #else 'Disabled' #end}';
         #elseif js
-        var result:String = 'JS-MNS:';
-        result += '\n- Memory Used: ${getMemoryUsed()} bytes';
+            var result:String = 'JS-MNS:';
+            result += '\n- Memory Used: ${getMemoryUsed()} bytes';
         #else
-        var result:String = 'Unknown GC';
+            var result:String = 'Unknown GC';
         #end
-        return result;
+            return result;
     }
 
     /**
@@ -45,9 +45,9 @@ class MemoryUtil{
     */
     public static function getMemoryUsed():Int{
         #if cpp // There is also Gc.MEM_INFO_RESERVED, MEM_INFO_CURRENT, and MEM_INFO_LARGE.
-        return cpp.vm.Gc.memInfo(cpp.vm.Gc.MEM_INFO_USAGE);
+            return cpp.vm.Gc.memInfo(cpp.vm.Gc.MEM_INFO_USAGE);
         #else
-        return openfl.system.System.totalMemory;
+            return openfl.system.System.totalMemory;
         #end
     }
 
@@ -56,9 +56,9 @@ class MemoryUtil{
     */
     public static function enable():Void{
         #if cpp
-        cpp.vm.Gc.enable(true);
+            cpp.vm.Gc.enable(true);
         #else
-        throw 'Not implemented!';
+            throw 'Not implemented!';
         #end
     }
 
@@ -67,9 +67,9 @@ class MemoryUtil{
     */
     public static function disable():Void{
         #if cpp
-        cpp.vm.Gc.enable(false);
+            cpp.vm.Gc.enable(false);
         #else
-        throw 'Not implemented!';
+            throw 'Not implemented!';
         #end
     }
 
@@ -80,9 +80,9 @@ class MemoryUtil{
     */
     public static function collect(major:Bool = false):Void{
         #if cpp
-        cpp.vm.Gc.run(major);
+            cpp.vm.Gc.run(major);
         #else
-        throw 'Not implemented!';
+            throw 'Not implemented!';
         #end
     }
 
@@ -94,9 +94,9 @@ class MemoryUtil{
     */
     public static function compact():Void{
         #if cpp
-        cpp.vm.Gc.compact();
+            cpp.vm.Gc.compact();
         #else
-        throw 'Not implemented!';
+            throw 'Not implemented!';
         #end
     }
 }

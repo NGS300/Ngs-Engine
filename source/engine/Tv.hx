@@ -1,5 +1,6 @@
 package engine;
+import engine.internal.ui.UpdateMusic;
 
-class Tv{
+class Tv extends UpdateMusic{
     
 }

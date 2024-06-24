@@ -41,37 +41,43 @@
 
     * With ***Gits***
     ```bash
-    haxelib git haxeui-core https://github.com/haxeui/haxeui-core
+    haxelib git haxeui-core https://github.com/haxeui/haxeui-core.git
     ```
     ```bash
-    haxelib git haxeui-flixel https://github.com/haxeui/haxeui-flixel
+    haxelib git haxeui-flixel https://github.com/haxeui/haxeui-flixel.git
     ```
     ```bash
-    haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
+    haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc.git
     ```
     ```bash
     haxelib git polymod https://github.com/larsiusprime/polymod.git
     ```
     ```bash
-    haxelib git json2object https://github.com/elnabo/json2object
+    haxelib git flxanimate https://github.com/Dot-Stuff/flxanimate.git
     ```
     ```bash
-    haxelib git mconsole https://github.com/massive-oss/mconsole
+    haxelib git json2object https://github.com/elnabo/json2object.git
     ```
     ```bash
-    haxelib git mcover https://github.com/massive-oss/mcover
+    haxelib git mconsole https://github.com/massive-oss/mconsole.git
     ```
     ```bash
-    haxelib git mockatoo https://github.com/misprintt/mockatoo
+    haxelib git mcover https://github.com/massive-oss/mcover.git
     ```
     ```bash
-    haxelib git munit https://github.com/massiveinteractive/MassiveUnit
+    haxelib git mockatoo https://github.com/misprintt/mockatoo.git
     ```
     ```bash
-    haxelib git thx.core https://github.com/fponticelli/thx.core
+    haxelib git munit https://github.com/massiveinteractive/MassiveUnit.git
     ```
     ```bash
-    haxelib git thx.semver https://github.com/fponticelli/thx.semver
+    haxelib git thx.core https://github.com/fponticelli/thx.core.git
+    ```
+    ```bash
+    haxelib git thx.semver https://github.com/fponticelli/thx.semver.git
+    ```
+    ```bash
+    haxelib git hxgamejolt-api https://github.com/MAJigsaw77/hxgamejolt-api.git
     ```
 3. Platform setup
    - For Windows, download the [Visual Studio 2022](https://visualstudio.microsoft.com/pt-br/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false)

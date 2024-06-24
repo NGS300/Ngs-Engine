@@ -56,19 +56,25 @@ class Client{
 
     public static function initialize(){
       if (!initialized){
-        var DiscordDaemon = sys.thread.Thread.create(() ->{
-          new Client();
-        });
-        #if debug
-          trace("Discord Client Initialized");
-        #end
-        initialized = true;
-        Application.current.onExit.add(function(exitCode){
-          shutdown();
-        });
+        if (api.id != ''){
+          var DiscordDaemon = sys.thread.Thread.create(() ->{
+            new Client();
+          });
+          #if debug
+            trace("Discord Client Initialized");
+          #end
+          initialized = true;
+          Application.current.onExit.add(function(exitCode){
+            shutdown();
+          });
+        }else{
+          #if debug
+            trace("Discord Client Failed Initialize");
+          #end
+        }
       }else{
         #if debug
-          trace('Skiped Discord Client Initialize');
+          trace('Discord Client Running');
         #end
       }
     }

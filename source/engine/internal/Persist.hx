@@ -40,13 +40,6 @@ class Persist{
     // ==============================
 
     /**
-     * The title of the game, for debug printing purposes.
-     * Change this if you're making an engine/mod.
-    */
-    public static final TITLE:String = "Friday Night Funkin' NG'S Engine";
-
-
-    /**
      * The current version number of the game.
      * Modify this in the `project.xml` file.
     */
@@ -56,9 +49,8 @@ class Persist{
      * The generatedBy string embedded in the chart files made by this application.
     */
     public static var GENERATED_BY(get, never):String;
-
     static function get_GENERATED_BY():String{
-        return '${Persist.TITLE} - ${Persist.VERSION}';
+        return '${Application.current.meta.get('title')} - ${Persist.VERSION}';
     }
 
     /**
@@ -68,13 +60,13 @@ class Persist{
     public static final VERSION_SUFFIX:String = #if (DEBUG || FORCE_DEBUG_VERSION) ' PROTOTYPE' #else '' #end;
 
     #if (debug || FORCE_DEBUG_VERSION)
-    static function get_VERSION():String{
-        return 'v${Application.current.meta.get('version')} (${GIT_BRANCH} : ${GIT_HASH}${GIT_HAS_LOCAL_CHANGES ? ' : MODIFIED' : ''})' + VERSION_SUFFIX;
-    }
+        static function get_VERSION():String{
+            return 'v${Application.current.meta.get('version')} (${GIT_BRANCH} : ${GIT_HASH}${GIT_HAS_LOCAL_CHANGES ? ' : MODIFIED' : ''})' + VERSION_SUFFIX;
+        }
     #else
-    static function get_VERSION():String{
-        return 'v${Application.current.meta.get('version')}' + VERSION_SUFFIX;
-    }
+        static function get_VERSION():String{
+            return 'v${Application.current.meta.get('version')}' + VERSION_SUFFIX;
+        }
     #end
 
     /**

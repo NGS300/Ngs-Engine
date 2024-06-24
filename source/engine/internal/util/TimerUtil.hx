@@ -1,9 +1,17 @@
 package engine.internal.util;
 
+import flixel.util.FlxTimer;
 import engine.internal.util.tools.FloatTools;
 import haxe.Timer;
 
 class TimerUtil{
+
+  public static function NewTimer(?time:Float, func:Void -> Void, ?loops:Int){
+    return new FlxTimer().start(time, function(tmr:FlxTimer){
+        func();
+    }, loops);
+  }
+
   /**
    * Store the current time.
   */

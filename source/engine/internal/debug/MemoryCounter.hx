@@ -4,6 +4,7 @@ import engine.internal.util.MemoryUtil;
 import openfl.text.TextFormat;
 import openfl.system.System;
 import openfl.text.TextField;
+
 class MemoryCounter extends TextField{
     var memPeak:Float = 0;
     static final BYTES_PER_MEG:Float = 1024 * 1024;

@@ -1,18 +1,17 @@
 package engine.internal.util;
 
 import flixel.util.FlxSignal.FlxTypedSignal;
-
-//using StringTools;
+using StringTools;
 
 /**
  * Utilities for operating on the current window, such as changing the title.
 */
 #if (cpp && windows)
-@:cppFileCode('
-#include <iostream>
-#include <windows.h>
-#include <psapi.h>
-')
+  @:cppFileCode('
+  #include <iostream>
+  #include <windows.h>
+  #include <psapi.h>
+  ')
 #end
 class WindowUtil{
   /**
