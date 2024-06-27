@@ -9,6 +9,7 @@ package engine;
     using StringTools;
     using engine.internal.util.tools.ArraySortTools;
     using engine.internal.util.tools.ArrayTools;
+    using engine.internal.util.tools.ICloneable;
     using engine.internal.util.tools.FloatTools;
     using engine.internal.util.tools.Int64Tools;
     using engine.internal.util.tools.IntTools;

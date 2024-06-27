@@ -24,11 +24,11 @@ class Graphics extends FlxSprite{
     */
     public function posY(Y:Float):Float{
         var result:Float = 0;
-        var it = (Y > 0 ? - Y : - Y);
-        if (Y > 0)
+        //var it = (Y > 0 ? - Y : - Y);
+        /*if (Y > 0)
             result = y += it;
         else
-            result = y -= it;
+            result = y -= it;*/
         return result;
     }
     

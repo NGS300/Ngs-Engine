@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
-	<app title="Friday Night Funkin': NG'S Engine" file="NGE" packageName="com.nge.fnf" package="com.nge.fnf" main="Base" version="1.0" company="NGS300" />
+	<app title="NG's Engine" file="NGE" packageName="com.nge.fnf" package="com.nge.fnf" main="Base" version="1.0" company="NGS300" />
 
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
 	<app preloader="flixel.system.FlxPreloader" />

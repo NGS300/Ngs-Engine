@@ -1,5 +1,7 @@
 package;
 
+import engine.internal.Persist;
+import engine.App;
 import engine.internal.api.Gamejolt;
 import engine.internal.api.Discord;
 import engine.internal.debug.MemoryCounter;
@@ -34,6 +36,7 @@ class Base extends Sprite{
     }
     public function new(){
         super();
+        App.title(true);
         if (stage != null)
             init();
         else
