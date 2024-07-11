@@ -1,7 +1,9 @@
 package engine.internal.util.macro;
+
 #if macro
   using engine.internal.util.tools.ArrayTools;
 #end
+
 /**
  * A macro to make fields inline.
 */
@@ -23,7 +25,8 @@ class InlineMacro{
       && (MacroUtil.isFieldStatic(f) == isStatic));
 
     // If the field was not found, throw an error.
-    if (targetField == null) haxe.macro.Context.error("Field " + field + " not found in class " + cls.name, pos);
+    if (targetField == null)
+      haxe.macro.Context.error("Field " + field + " not found in class " + cls.name, pos);
 
     // Add the inline access modifier to the field.
     targetField.access.push(AInline);

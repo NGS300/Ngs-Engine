@@ -1,13 +1,15 @@
 package engine.internal.api;
+
+import engine.internal.util.WindowUtil;
 import lime.app.Application;
 import Sys.sleep;
 #if discord_rpc
   import discord_rpc.DiscordRpc;
 #end
 
-class Client{
-  public static var initialized:Bool = false;
-  public static var api ={ // Icon, Client ID, Name, Version
+class Discord{
+  public static var initialized = false;
+  public static var api = { // Icon, Client ID, Name, Version
     icon: 'logo',
     id: Persist.discordAPI,
     name: 'NGS Engine v',
@@ -16,23 +18,25 @@ class Client{
   #if discord_rpc
     public function new(){
       #if debug
-        trace("Discord Client Starting...");
+        Debug.log("Discord Client Starting...");
       #end
+      
       DiscordRpc.start({
         clientID: api.id,
         onReady: onReady,
         onError: onError,
         onDisconnected: onDisconnected
       });
+
       #if debug
-        trace("Discord Client started.");
+        Debug.log("Discord Client started.");
       #end
 
       while (true){
         DiscordRpc.process();
         sleep(2);
         /*#if debug
-          trace("Discord Client Update");
+          Debug.log("Discord Client Update");
         #end*/
       }
       shutdown();
@@ -41,7 +45,7 @@ class Client{
     public static function shutdown(){
       DiscordRpc.shutdown();
       #if debug
-        trace("Discord Client Shutdown");
+        Debug.log("Discord Client Shutdown", 'notice');
       #end
     }
 
@@ -57,31 +61,36 @@ class Client{
     public static function initialize(){
       if (!initialized){
         if (api.id != ''){
-          var DiscordDaemon = sys.thread.Thread.create(() ->{
-            new Client();
+          var DiscordDaemon = sys.thread.Thread.create(() -> {
+            new Discord();
           });
-          #if debug
-            trace("Discord Client Initialized");
-          #end
           initialized = true;
-          Application.current.onExit.add(function(exitCode){
+
+          #if debug
+            Debug.log("Discord Client Initialized");
+          #end
+
+          WindowUtil.initWindowEvents();
+          WindowUtil.windowExit.add(function(exitCode){
             shutdown();
           });
         }else{
           #if debug
-            trace("Discord Client Failed Initialize");
+            Debug.log("Discord Client Failed Initialize", 'error');
           #end
         }
       }else{
         #if debug
-          trace('Discord Client Running');
+          Debug.log('Discord Client Running', 'notice');
         #end
       }
     }
 
     public static function presence(details:String, ?state:String, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float, ?largeImage:Null<String> = null){
       var startTimestamp:Float = if (hasStartTimestamp) Date.now().getTime() else 0;
-      if (endTimestamp > 0) endTimestamp = startTimestamp + endTimestamp;
+      if (endTimestamp > 0)
+        endTimestamp = startTimestamp + endTimestamp;
+
       DiscordRpc.presence({
         details: details,
         state: state,
@@ -93,11 +102,15 @@ class Client{
         endTimestamp: Std.int(endTimestamp / 1000)
       });
       #if debug
-        trace('Discord RPC Updated. Arguments: $details, $state, $smallImageKey, $hasStartTimestamp, $endTimestamp');
+        Debug.log('Discord RPC Updated. Arguments: $details, $state, $smallImageKey, $hasStartTimestamp, $endTimestamp');
       #end
     }
 
-    static function onError(_code:Int, _message:String){trace('Error! $_code : $_message');}
-    static function onDisconnected(_code:Int, _message:String){trace('Disconnected! $_code : $_message');}
+    static function onError(_code:Int, _message:String){
+      Debug.log('Error! $_code : $_message', 'error');
+    }
+    static function onDisconnected(_code:Int, _message:String){
+      Debug.log('Disconnected! $_code : $_message', 'notice');
+    }
   #end
 }

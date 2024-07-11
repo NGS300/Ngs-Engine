@@ -1,4 +1,5 @@
 package engine.internal.util.macro;
+
 #if !display
   #if macro
   class FlxMacro{

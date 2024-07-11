@@ -19,7 +19,8 @@ class FlxGamepadUtil{
     #end
 
     var result:FlxGamepadInputID = gamepad.mapping.getID(button + OFFSET);
-    if (result == NONE) return NONE;
+    if (result == NONE)
+      return NONE;
     return result;
   }
 

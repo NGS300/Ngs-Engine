@@ -1,9 +1,5 @@
 package engine.internal;
 
-import lime.app.Application;
-import flixel.system.FlxBasePreloader;
-import flixel.util.FlxColor;
-
 /**
  * A store of unchanging, globally relevant values.
 */
@@ -28,11 +24,12 @@ class Persist{
      * API DATA
     */
     // ==============================
-    public static var discordAPI:String = '966024519271710780';
-    public static var gamejoltAPI ={
+    public static var discordAPI = '966024519271710780';
+    public static var gamejoltAPI = {
         id: '702509',
         key: '1c9d49cd39dd3321a3d49ad1a23240ee'
     };
+
 
     /**
      * ENGINE DATA INFO's
@@ -42,12 +39,43 @@ class Persist{
     /**
      * Engine Name
     */
-    public static var SUFFIX:String = #if (DEBUG || FORCE_DEBUG_VERSION) 'BETA' #else '' #end;
-    public static var NAME:String = "NG's Engine";
-    public static var ENGINE ={
+    public static var NAME = "NG's Engine";
+    public static var engineInfo = {
+        version: '1.0.0',
         name: NAME,
         title: "Friday Night Funkin': " + NAME,
-        version: '1.0.0 ' + SUFFIX
+        state: 'Beta',
+        num: 0
+    }
+
+    public static var engineOptions = {
+        downscroll: false
+    }
+
+
+    /**
+     * SONG DATA
+    */
+    // ==============================
+
+    /**
+     * Song Global SetUP
+    */
+    public static var songData = { // Song Global Setup
+        // Song Property
+        version: '1.0.0',
+        name: 'Unknown',
+        artist: 'Unknown',
+        bpm: 100.0,
+        speed: 1.0,
+
+        // Map
+        stage: 'mainStage',
+
+        // Characters
+        player: '',
+        opponent: '',
+        speaker: ''
     }
 
 
@@ -75,26 +103,4 @@ class Persist{
      * The file extension used when loading data files.
     */
     public static final EXT_DATA = "json";
-
-    /**
-     * SONG DATA
-    */
-    // ==============================
-
-    /**
-     * Song Global SetUP
-    */
-    public static var song ={
-        engine: ENGINE.name,
-        version: ENGINE.version,
-        name: 'Unknown',
-        artist: 'Unknown',
-        stage: '',
-        characters: ['player' => '', 'speaker' => '', 'opponent' => ''],
-        vocalsVol: ['vocals' => 1.0, 'player' => 1.0, 'speaker' => 1.0, 'opponent' => 1.0],
-        vocals: ['vocals' => 'vocals', 'player' => 'player', 'speaker' => 'speaker', 'opponent' => 'opponent'],
-        instVol: ['inst' => 1.0],
-        inst: ['inst' => 'inst'],
-        altInst: [],
-    }
 }

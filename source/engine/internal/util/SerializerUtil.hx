@@ -32,8 +32,8 @@ class SerializerUtil{
     try{
       return Json.parse(input);
     }catch (e){
-      trace('An error occurred while parsing JSON from string data');
-      trace(e);
+      Debug.log('An error occurred while parsing JSON from string data');
+      Debug.tracer(e);
       return null;
     }
   }
@@ -45,8 +45,8 @@ class SerializerUtil{
     try{
       return Json.parse(input.toString());
     }catch (e:Dynamic){
-      trace('An error occurred while parsing JSON from byte data');
-      trace(e);
+      Debug.log('An error occurred while parsing JSON from byte data');
+      Debug.tracer(e);
       return null;
     }
   }
@@ -78,7 +78,8 @@ class SerializerUtil{
   */
   static function replacer(key:String, value:Dynamic):Dynamic{
     if (key == "version"){ // Hacky because you can't use `isOfType` on a struct.
-      if (Std.isOfType(value, String)) return value;
+      if (Std.isOfType(value, String))
+        return value;
       return serializeVersion(cast value); // Stringify Version objects.
     }
     return value; // Else, return the value as-is.
@@ -86,8 +87,12 @@ class SerializerUtil{
 
   static inline function serializeVersion(value:thx.semver.Version):String{
     var result = '${value.major}.${value.minor}.${value.patch}';
-    if (value.hasPre) result += '-${value.pre}';
-    if (value.build.length > 0) result += '+${value.build}'; // TODO: Merge fix for version.hasBuild
+    if (value.hasPre)
+      result += '-${value.pre}';
+
+    if (value.build.length > 0)
+      result += '+${value.build}'; // TODO: Merge fix for version.hasBuild
+
     return result;
   }
 }
@@ -96,7 +101,7 @@ class TypeResolver{
   public function new(){} // Blank constructor.
   public function resolveClass(name:String):Class<Dynamic>{
     if (name == 'Dynamic'){
-      FlxG.log.warn('Found invalid class type in save data, indicates partial save corruption.');
+      Debug.log('Found invalid class type in save data, indicates partial save corruption.', 'warn');
       return null;
     }
     return Type.resolveClass(name);

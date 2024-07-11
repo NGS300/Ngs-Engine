@@ -14,7 +14,8 @@ class MacroUtil{
   */
   public static macro function getDefine(key:String, defaultValue:String = null):haxe.macro.Expr{
     var value = haxe.macro.Context.definedValue(key);
-    if (value == null) value = defaultValue;
+    if (value == null)
+      value = defaultValue;
     return macro $v{value};
   }
 
@@ -118,7 +119,8 @@ class MacroUtil{
      * @return Whether the class is a subclass of the superclass.
     */
     public static function isSubclassOf(classType:ClassType, superClass:ClassType):Bool{
-      if (areClassesEqual(classType, superClass)) return true;
+      if (areClassesEqual(classType, superClass))
+        return true;
       if (classType.superClass != null)
         return isSubclassOf(classType.superClass.t.get(), superClass);
       return false;
@@ -132,7 +134,8 @@ class MacroUtil{
     */
     public static function implementsInterface(classType:ClassType, interfaceType:ClassType):Bool{
       for (i in classType.interfaces){
-        if (areClassesEqual(i.t.get(), interfaceType)) return true;
+        if (areClassesEqual(i.t.get(), interfaceType))
+          return true;
       }
       if (classType.superClass != null)
         return implementsInterface(classType.superClass.t.get(), interfaceType);

@@ -1,10 +1,11 @@
 package engine.internal.api;
+
 #if hxgamejolt_api
     import hxgamejolt.GameJolt;
 #end
 
 class Gamejolt extends GameJolt{
-    private static var jolt ={
+    private static var jolt = {
         user: '',
         token: '',
         id: '',
@@ -34,34 +35,34 @@ class Gamejolt extends GameJolt{
                 if (jolt.id != '' && jolt.key != ''){
                     GameJolt.init(jolt.id, jolt.key);
                     #if debug
-                        trace('Gamejolt API Initialize');
+                        Debug.log('Gamejolt API Initialize');
                     #end
                 }else{
                     #if debug
-                        trace('Gamejolt API Failed Initialize');
+                        Debug.log('Gamejolt API Failed Initialize', 'error');
                     #end
                 }
             }else{
                 #if debug
-                    trace('Gamejolt API Running');
+                    Debug.log('Gamejolt API Running');
                 #end
             }
         }
 
         public static function api(){
-            GameJolt.authUser(jolt.user, jolt.token,{
+            GameJolt.authUser(jolt.user, jolt.token, {
                 onSucceed: function(data:Dynamic):Void{
                     // your code
                 }, onFail: function(message:String):Void{
-                    trace(message);
+                    Debug.log(message);
                 }
             });
             
-            GameJolt.fetchUser(jolt.user, [],{
+            GameJolt.fetchUser(jolt.user, [], {
                 onSucceed: function(data:Dynamic):Void{
                     // your code
                 }, onFail: function(message:String):Void{
-                    trace(message);
+                    Debug.log(message);
                 }
             });
         }

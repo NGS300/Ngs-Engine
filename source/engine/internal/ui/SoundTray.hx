@@ -1,11 +1,7 @@
 package engine.internal.ui;
 
 import flixel.system.ui.FlxSoundTray;
-import flixel.tweens.FlxTween;
-import flixel.system.FlxAssets;
-import flixel.tweens.FlxEase;
 import openfl.display.Bitmap;
-import openfl.display.BitmapData;
 import openfl.utils.Assets;
 import engine.internal.util.MathUtil;
 
@@ -15,9 +11,9 @@ import engine.internal.util.MathUtil;
  *
  *  Gets added to the game in Main.hx, right after FlxGame is new'd
  *  since it's a Sprite rather than Flixel related object
- */
+*/
 class SoundTray extends FlxSoundTray{
-  var graphicScale:Float = 0.30;
+  var graphicScale = 0.30;
   var lerpYPos:Float = 0;
   var alphaTarget:Float = 0;
   var volumeMaxSound:String;
@@ -41,7 +37,6 @@ class SoundTray extends FlxSoundTray{
     backingBar.scaleY = graphicScale;
     addChild(backingBar);
     backingBar.alpha = 0.4;
-
     _bars = []; // clear the bars array entirely, it was initialized
 
     for (i in 1...11){ // we are trying to get assets bars_1-10
@@ -53,20 +48,17 @@ class SoundTray extends FlxSoundTray{
       addChild(bar);
       _bars.push(bar);
     }
-
     y = -height;
     screenCenter();
     volumeUpSound = Paths.sound("soundtray/Volup");
     volumeDownSound = Paths.sound("soundtray/Voldown");
     volumeMaxSound = Paths.sound("soundtray/VolMAX");
-
-    trace("Engine Tray Added!");
+    Debug.log("Engine Tray Added!");
   }
 
   override public function update(MS:Float):Void{
     y = MathUtil.coolLerp(y, lerpYPos, 0.1);
     alpha = MathUtil.coolLerp(alpha, alphaTarget, 0.25);
-
     if (_timer > 0){ // Animate sound tray thing
       _timer -= (MS / 1000);
       alphaTarget = 1;
@@ -78,13 +70,12 @@ class SoundTray extends FlxSoundTray{
     if (y <= -height){
       visible = false;
       active = false;
-
       #if FLX_SAVE // Save sound preferences
-      if (FlxG.save.isBound){
-        FlxG.save.data.mute = FlxG.sound.muted;
-        FlxG.save.data.volume = FlxG.sound.volume;
-        FlxG.save.flush();
-      }
+        if (FlxG.save.isBound){
+          FlxG.save.data.mute = FlxG.sound.muted;
+          FlxG.save.data.volume = FlxG.sound.volume;
+          FlxG.save.flush();
+        }
       #end
     }
   }
@@ -100,13 +91,11 @@ class SoundTray extends FlxSoundTray{
     active = true;
     var globalVolume:Int = Math.round(FlxG.sound.volume * 10);
     if (FlxG.sound.muted) globalVolume = 0;
-
     if (!silent){
       var sound = up ? volumeUpSound : volumeDownSound;
       if (globalVolume == 10) sound = volumeMaxSound;
       if (sound != null) FlxG.sound.load(sound).play();
     }
-
     for (i in 0..._bars.length){
       if (i < globalVolume)
         _bars[i].visible = true;

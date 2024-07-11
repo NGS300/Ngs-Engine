@@ -5,24 +5,25 @@ import flixel.util.FlxAxes;
 import flixel.FlxSprite;
 
 class Graphics extends FlxSprite{
-    public function new(widHei:Array<Int>, ?color:String){
+    public function new(width_Height:Array<Int>, ?color = 'white'){
         super();
-        makeGraphic(widHei[0], widHei[1], ColorsUtil.getColor(color));
+        var id = width_Height;
+        makeGraphic(id[0], id[1], ColorsUtil.getColor(color));
     }
 
     /**
      * [Visible Object]
-     * @param show Make Object Visible `OFF` & `ON`
+     * @param visible Make Object Visible `OFF` & `ON`
     */
-    public function show(show:Bool){
-        visible = show;
+    public function visible_(visible:Bool){
+        this.visible = visible;
     }
 
     /**
      * [Object Y Postion]
-     * @param Y (value - to negative & no - is positive) value to y move
+     * @param _y (value - to negative & no - is positive) value to y move
     */
-    public function posY(Y:Float):Float{
+    public function position_y(_y:Float):Float{
         var result:Float = 0;
         //var it = (Y > 0 ? - Y : - Y);
         /*if (Y > 0)
@@ -33,19 +34,23 @@ class Graphics extends FlxSprite{
     }
     
     /**
-     * [Object XY Position]
+     * [Object Position]
      * 
      * X & Y position of the upper left corner of this object in world space.
      * 
      * [`X`] goes right & [`-X`] goes left
      * 
      * [`Y`] goes up & [`-Y`] goes down
-     * @param xy Position `[x, y]`
+     * @param x_y[0] Position `X`
+     * @param x_y[1] Position `Y`
     */
-    public function pos(?xy:Array<Float>):Void{
-        var i = xy;
-        x = i[0];
-        y = (i[1] > 0 ? - i[1] : - i[1]);
+    public function position(?x_y:Array<Null<Float>>):Void{
+        var i = x_y;
+        if (i[0] != null)
+            x = i[0];
+
+        if (i[1] != null)
+            y = (i[1] > 0 ? - i[1] : - i[1]);
     }
 
     /**
@@ -53,32 +58,54 @@ class Graphics extends FlxSprite{
      * 
      * Set the coordinates of this point object. 
      * Controls how much this object is affected by camera scrolling. 0 = no movement (e.g. a background layer), 1 = same movement speed as the foreground.
-     * @param factor scrol `[x, y]`
+     * @param scroll_Factor[0] Scroll `X`
+     * @param scroll_Factor[1] Scroll `Y`
     */
-    public function scroll(?factor:Array<Float>):Void{
-        var i = factor;
-        scrollFactor.set(i[0], i[1]);
+    public function scroll_factor(?scroll_Factor:Array<Null<Float>>):Void{
+        var i = scroll_Factor;
+        var result:Array<Float> = [];
+        if (i[0] == null)
+            result[0] = i[1];
+        else if (i[0] <= 0)
+            result[0] = 0.1;
+        else
+            result[0] = i[0];
+
+        if (i[1] == null)
+            result[1] = i[0];
+        else if (i[1] <= 0)
+            result[1] = 0.1;
+        else
+            result[1] = i[1];
+
+        scrollFactor.set(result[0], result[1]);
     }
 
     /**
      * Whether this sprite is flipped on the X & Y axis.
-     * @param xy flip `[x, y]`
+     * @param x_y[0] Flip `X`
+     * @param x_y[1] Flip `Y`
     */
-    public function flip(?xy:Array<Bool>):Void{
-        var i = xy;
-        flipX = i[0];
-        flipY = i[1];
+    public function flip(?x_y:Array<Null<Bool>>):Void{
+        var i = x_y;
+        if (i[0] != null)
+            flipX = i[0];
+
+        if (i[1] != null)
+            flipY = i[1];
     }
 
     /**
      * The width & height of this object's hitbox. For sprites, use `offset` to control the hitbox position
-     * @param widHei size `[x, y]`
+     * @param width_Height[0] Size `X`
+     * @param width_Height[1] Size `Y`
     */
-    public function widHei(?widHei:Array<Float>):Void{
-        var i = widHei;
-        if (i[0] != 0)
+    public function width_height(?width_Height:Array<Null<Float>>):Void{
+        var i = width_Height;
+        if (i[0] != 0 || i[0] != null)
             width = i[0];
-        if (i[1] != 0)
+
+        if (i[1] != 0 || i[1] != null)
             height = i[1];
     }
 
@@ -86,56 +113,80 @@ class Graphics extends FlxSprite{
      * [Scale Postion]
      * 
      * Change the size of your sprite's graphic
-     * @param xy scale `[x, y]`
+     * @param x_y[0] Scale `X`
+     * @param x_y[1] Scale `Y`
     */
-    public function scalePos(?xy:Array<Float>):Void{
-        var i = xy;
-        if (i[0] != 0)
+    public function scale_position(?x_y:Array<Null<Float>>):Void{
+        var i = x_y;
+        if (i[0] != 0 || i[1] != null)
             scale.x = i[0];
-        if (i[1] != 0)
+
+        if (i[1] != 0 || i[1] != null)
             scale.y = i[1];
-        upBox();
+        
+        updateBox();
     }
 
     /**
      * [Scale Set]
      * 
      * Set the coordinates of this point object
-     * @param set scale `[x, y]`
+     * @param scale_Set[0] Scale `X`
+     * @param scale_Set[1] Scale `Y`
     */
-    public function scaleSet(?set:Array<Float>):Void{
-        var i = set;
-        scale.set(i[0], i[1]);
-        upBox();
+    public function scale_set(?scale_Set:Array<Null<Float>>):Void{
+        var i = scale_Set;
+        var result:Array<Float> = [1, 1];
+        if (i[0] != 0 || i[0] != null)
+            result[0] = i[0];
+
+        if (i[1] != 0 || i[1] != null)
+            result[1] = i[1];
+
+        scale.set(result[0], result[1]);
+        updateBox();
     }
     
     /**
 	 * Helper function to set the graphic's dimensions by using `scale`, allowing you to keep the current aspect ratio
      * 
-     * @param widHei size `[width, height]`, How wide the graphic should be. If <= 0, and width & height is set, the aspect ratio will be kept
-     * @param Free Unlock the `dimesion` value * `widHei` value to `dimesion` value
+     * @param width_Height[0] Size `[width]`, How wide the graphic should be. If <= 0, and width is set, the aspect ratio will be kept
+     * @param width_Height[1] Size `[height]`, How wide the graphic should be. If <= 0, and height is set, the aspect ratio will be kept
+     * @param free Unlock the `dimesion` value * `widHei` value to `dimesion` value
 	*/
-    public function graphicSize(widHei:Array<Float>, free = false){
-        var i = widHei;
-        var curVar:Array<Float> = [];
-        if (free)
-            curVar =[
-                i[0], // Width
-                i[1] // Height
-            ];
-        else{
-            var id:Array<Float> = [];
-            if (i[0] != 0 || i[0] <= 0.0) // Width
+    public function graphicSize(width_Height:Array<Null<Float>>, free = false){
+        var i = width_Height;
+        var result:Array<Float> = [-1, -1];
+        if (i[0] <= 0 && i[1] <= 0)
+            return;
+
+        var id:Array<Float> = [-1, -1];
+        if (free){
+            if (i[0] != 0 || i[0] != null) // Width
                 id[0] = i[0];
-            if (i[1] != 0 || i[1] <= 0.0) // Height
+
+            if (i[1] != 0 || i[1] != null) // Height
                 id[1] = i[1];
-            curVar =[
+
+            result = [
+                id[0], // Width
+                id[1] // Height
+            ];
+        }else{
+            if (i[0] != 0 || i[0] != null) // Width
+                id[0] = i[0];
+
+            if (i[1] != 0 || i[1] != null) // Height
+                id[1] = i[1];
+            
+            result = [
                 Std.int(width * id[0]),
                 Std.int(height * id[1])
             ];
         }
-        setGraphicSize(curVar[0], curVar[1]);
-        upBox();
+
+        setGraphicSize(result[0], result[1]);
+        updateBox();
     }
 
     /**
@@ -143,17 +194,18 @@ class Graphics extends FlxSprite{
 	 *
 	 * @param axes On what axes to center the object (e.g. `X`, `Y`, `XY`) - default is both.
 	*/
-    public function center(axes:String = 'XY'):Void{
+    public function center(axes = 'XY'):Void{
         var i = axes;
         var id:FlxAxes;
-        if (i == 'NONE')
-            id = NONE;
+        if (i == 'XY')
+            id = XY;
         else if (i == 'X')
             id = X;
         else if (i == 'Y')
             id = Y;
         else
-            id = XY;
+            id = NONE;
+
         screenCenter(id);
     }
 
@@ -164,12 +216,13 @@ class Graphics extends FlxSprite{
      * 
      * `Y` - scale `Y` coefficient, if omitted, `X` is used
      * 
-     * @param xy
+     * @param x_y[0] `X`
+     * @param x_y[1] `Y`
     */
-    public function offsetScale(?xy:Array<Null<Float>>):Void{
-        var i = xy;
-        var id:Float = xy[1];
-        if (xy[1] == 0 || xy[1] == null)
+    public function offset_(?x_y:Array<Null<Float>>):Void{
+        var i = x_y;
+        var id:Float = x_y[1];
+        if (i[1] == 0 || i[1] == null)
             id = i[0];
 
         offset.scale(i[0], id);
@@ -178,7 +231,7 @@ class Graphics extends FlxSprite{
     /**
      * [Update Hitbox]
     */
-    public function upBox():Void{
-        updateHitbox();
+    public function updateBox():Void{
+        return updateHitbox();
     }
 }

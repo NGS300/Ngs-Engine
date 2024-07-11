@@ -4,6 +4,7 @@ package engine;
     import engine.Paths;
     import flixel.FlxG; // This one in particular causes a compile error if you're using macros.
     import flixel.system.debug.watch.Tracker;
+    import engine.internal.debug.Debug;
 
     using Lambda;
     using StringTools;

@@ -2,7 +2,7 @@ package engine.internal.util;
 import flixel.util.FlxColor;
 import haxe.ui.util.Color;
 abstract ColorsUtil(Int) from Int{
-    public static var color:Map<String, Int> =[
+    public static var colorMap:Map<String, Int> = [
         "black" =>   0xFF000000,
         "white" =>   0xFFFFFFFF,
         "mediumvioletred" => 0xFFc71585,
@@ -370,13 +370,116 @@ abstract ColorsUtil(Int) from Int{
      * Transform: `color.get('color')` to `Int color`
      * @param id Color name
     */
-    public static function getColor(?id:String):FlxColor{
-        var result:Int;
-        if (id == null)
-            result = -1;
-        else
-            result = color.get(id);
+    public static function getColor(id:String):FlxColor{
+        if (checkRGBFormat(id)){ // RGB/RGBA
+            var spliter:Array<String> = id.split(delimiter);
+            var isFloat:Bool = false;//isFloatColor(spliter)
+            if (isFloat){ // Float (FFF)
+                var r:Float = Std.parseFloat(spliter[0]); // Red (R)
+                var g:Float = Std.parseFloat(spliter[1]); // Green (G)
+                var b:Float = Std.parseFloat(spliter[2]); // Blue (B)
+                var a:Float = (!isRGBA(id) ? 1.0 : Std.parseFloat(spliter[3])); // Alpha (A)
+                #if debug
+                    Debug.log("Float: (" + 'R: $r, G: $g, B: $b, A: $a');
+                #end
+                return FlxColor.fromRGBFloat(r, g, b, a);
+            }else{ // Init
+                var r:Int = Std.parseInt(spliter[0]); // Red (R)
+                var g:Int = Std.parseInt(spliter[1]); // Green (G)
+                var b:Int = Std.parseInt(spliter[2]); // Blue (B)
+                var a:Int = (!isRGBA(id) ? 255 : Std.parseInt(spliter[3])); // Alpha (A)
+                #if debug
+                    Debug.log("Init: (" + 'R: $r, G: $g, B: $b, A: $a');
+                #end
+                return FlxColor.fromRGB(r, g, b, a);
+            }
+            
+        }else if (id.startsWith('0xFF') || id.startsWith('FF')){ // Hexadecimal
+            var isStartHex = id.contains('0x');
+            var sub = id.substr((!isStartHex ? 2 : 4)); // Remove 0xFF or FF
+            var hex = '0x'; // but need this XO
+            var result = hex + sub;
+            #if debug
+                Debug.log('Hex: $result');
+            #end
+            return FlxColor.fromString(result);
+        }else if (colorMap.exists(id)){ // Map String
+            var result = colorMap.get(id); // Package OMG
+            #if debug
+                Debug.log('Color: $result');
+            #end
+            return FlxColor.fromInt(result);
+        }
 
-        return FlxColor.fromInt(result);
+        return -1;
+    }
+
+    static function containsNumber(str:String):Bool{
+        var regex:EReg = ~/^\d+$/;
+        return regex.match(str);
+    }
+
+    //! RGBA SHIT!
+    static var delimiter = ",";
+    public static function isRGBA(id:String):Bool{
+        return id.split(delimiter).length == 4;
+    }
+    public static function isNumeric(str:String):Bool{
+        return new EReg("^-?\\d+$", "").match(str);
+    }
+    public static function isFloatColor(spliter:Array<String>):Bool{
+        for (component in spliter){
+            /*if (!isNumeric(component)){
+                return false; // Componente não numérico encontrado
+                #if debug
+                    Debug.log("Non-numeric component found", 'warn);
+                #end
+            }*/
+            
+            var value = Std.parseFloat(component);
+            if (value < 0.0 || value > 1.0){
+                return false;
+                #if debug
+                    Debug.log("Value out of range of 0 to 1", 'notice');
+                #end
+            }
+        }
+        return true;
+    }
+    public static function checkRGBFormat(id:String):Bool{
+        var components:Array<String> = id.split(delimiter);
+        if (components.length < 3){
+            return false;
+            #if debug
+                Debug.log('Must have 3 components (RGB) or 4 components (RGBA)', 'notice');
+            #end
+        }
+        
+        for (component in components){
+            if (component == "" || !isNumeric(component)){
+                return false;
+                #if debug
+                    Debug.log("Non-numeric component found", 'warn');
+                #end
+            }
+            
+            var value = Std.parseFloat(component);
+            if (components.length == 4 && component == components[3]){
+                if (value < 0 || value > 255){
+                    return false;
+                    #if debug
+                        Debug.log("Alpha channel value out of range", 'notice');
+                    #end
+                }
+            }else{
+                if (value < 0 || value > 255){
+                    return false;
+                    #if debug
+                        Debug.log("RGB value out of range", 'notice');
+                    #end
+                }
+            }
+        }
+        return true;
     }
 }

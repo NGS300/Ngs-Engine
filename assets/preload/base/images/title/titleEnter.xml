@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="titleEnter.png">
+	<!-- Created with Adobe Animate version 24.0.0.305 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="press0000" x="0" y="0" width="1495" height="104"/>
+	<SubTexture name="press0001" x="1495" y="0" width="1495" height="104"/>
+	<SubTexture name="press0002" x="0" y="104" width="1495" height="104"/>
+	<SubTexture name="press0003" x="1495" y="104" width="1495" height="104"/>
+	<SubTexture name="press0004" x="0" y="208" width="1495" height="104"/>
+	<SubTexture name="press0005" x="1495" y="208" width="1495" height="104"/>
+	<SubTexture name="press0006" x="0" y="312" width="1495" height="104"/>
+	<SubTexture name="press0007" x="1495" y="312" width="1495" height="104"/>
+	<SubTexture name="press0008" x="0" y="416" width="1495" height="104"/>
+	<SubTexture name="press0009" x="1495" y="416" width="1495" height="104"/>
+	<SubTexture name="press0010" x="0" y="520" width="1495" height="104"/>
+	<SubTexture name="press0011" x="1495" y="520" width="1495" height="104"/>
+	<SubTexture name="press0012" x="0" y="624" width="1495" height="104"/>
+	<SubTexture name="press0013" x="1495" y="624" width="1495" height="104"/>
+	<SubTexture name="press0014" x="0" y="728" width="1495" height="104"/>
+	<SubTexture name="press0015" x="1495" y="728" width="1495" height="104"/>
+	<SubTexture name="press0016" x="0" y="832" width="1495" height="104"/>
+	<SubTexture name="press0017" x="1495" y="832" width="1495" height="104"/>
+	<SubTexture name="press0018" x="0" y="936" width="1495" height="104"/>
+	<SubTexture name="press0019" x="1495" y="936" width="1495" height="104"/>
+	<SubTexture name="press0020" x="0" y="1040" width="1495" height="104"/>
+	<SubTexture name="press0021" x="1495" y="1040" width="1495" height="104"/>
+	<SubTexture name="press0022" x="0" y="1144" width="1495" height="104"/>
+	<SubTexture name="press0023" x="0" y="1144" width="1495" height="104"/>
+	<SubTexture name="press0024" x="1495" y="1144" width="1495" height="104"/>
+	<SubTexture name="press0025" x="0" y="1040" width="1495" height="104"/>
+	<SubTexture name="press0026" x="0" y="1248" width="1495" height="104"/>
+	<SubTexture name="press0027" x="1495" y="1248" width="1495" height="104"/>
+	<SubTexture name="press0028" x="0" y="1352" width="1495" height="104"/>
+	<SubTexture name="press0029" x="1495" y="1352" width="1495" height="104"/>
+	<SubTexture name="press0030" x="0" y="1456" width="1495" height="104"/>
+	<SubTexture name="press0031" x="1495" y="1456" width="1495" height="104"/>
+	<SubTexture name="press0032" x="0" y="1560" width="1495" height="104"/>
+	<SubTexture name="press0033" x="1495" y="1560" width="1495" height="104"/>
+	<SubTexture name="press0034" x="0" y="1664" width="1495" height="104"/>
+	<SubTexture name="press0035" x="1495" y="1664" width="1495" height="104"/>
+	<SubTexture name="press0036" x="0" y="1768" width="1495" height="104"/>
+	<SubTexture name="press0037" x="1495" y="1768" width="1495" height="104"/>
+	<SubTexture name="press0038" x="0" y="1872" width="1495" height="104"/>
+	<SubTexture name="press0039" x="1495" y="1872" width="1495" height="104"/>
+	<SubTexture name="press0040" x="0" y="1976" width="1495" height="104"/>
+	<SubTexture name="press0041" x="1495" y="1976" width="1495" height="104"/>
+	<SubTexture name="press0042" x="0" y="2080" width="1495" height="104"/>
+	<SubTexture name="press0043" x="1495" y="2080" width="1495" height="104"/>
+	<SubTexture name="press0044" x="0" y="0" width="1495" height="104"/>
+	<SubTexture name="pressed0000" x="0" y="2184" width="1477" height="88"/>
+	<SubTexture name="pressed0001" x="1477" y="2184" width="1477" height="88"/>
+	<SubTexture name="pressed0002" x="0" y="2184" width="1477" height="88"/>
+	<SubTexture name="pressed0003" x="1477" y="2184" width="1477" height="88"/>
+	<SubTexture name="pressed0004" x="0" y="2184" width="1477" height="88"/>
+	<SubTexture name="pressed0005" x="1477" y="2184" width="1477" height="88"/>
+	<SubTexture name="pressed0006" x="1477" y="2184" width="1477" height="88"/>
+	<SubTexture name="pressed0007" x="0" y="2184" width="1477" height="88"/>
+	<SubTexture name="pressed0008" x="1477" y="2184" width="1477" height="88"/>
+</TextureAtlas>

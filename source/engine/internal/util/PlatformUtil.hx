@@ -1,6 +1,16 @@
 package engine.internal.util;
 
 /**
+ * Represents a host platform.
+*/
+enum HostPlatform{
+  WINDOWS;
+  LINUX;
+  MAC;
+  HTML5;
+}
+
+/**
  * Utility functions related to specific platforms.
 */
 class PlatformUtil{
@@ -43,14 +53,4 @@ class PlatformUtil{
       }
     #end
   }
-}
-
-/**
- * Represents a host platform.
-*/
-enum HostPlatform{
-  WINDOWS;
-  LINUX;
-  MAC;
-  HTML5;
 }

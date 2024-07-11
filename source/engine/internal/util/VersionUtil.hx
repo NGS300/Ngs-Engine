@@ -22,7 +22,7 @@ class VersionUtil{
     try{
       return version.satisfies(versionRule);
     }catch (e){
-      trace('[VERSIONUTIL] Invalid semantic version: ${version}');
+      Debug.log('[VERSIONUTIL] Invalid semantic version: ${version}');
       return false;
     }
   }
@@ -40,7 +40,7 @@ class VersionUtil{
       var versionRule:thx.semver.VersionRule = versionRule;
       return version.satisfies(versionRule);
     }catch (e){
-      trace('[VERSIONUTIL] Invalid semantic version: ${version}');
+      Debug.log('[VERSIONUTIL] Invalid semantic version: ${version}');
       return false;
     }
   }
@@ -51,10 +51,16 @@ class VersionUtil{
    * @return The semantic version, or null if it could not be parsed.
   */
   public static function getVersionFromJSON(input:Null<String>):Null<thx.semver.Version>{
-    if (input == null) return null;
+    if (input == null)
+      return null;
+
     var parsed:Dynamic = SerializerUtil.fromJSON(input);
-    if (parsed == null) return null;
-    if (parsed.version == null) return null;
+    if (parsed == null)
+      return null;
+
+    if (parsed.version == null)
+      return null;
+
     var versionStr:String = parsed.version; // Dynamic -> String cast
     var version:thx.semver.Version = versionStr; // Implicit, not explicit, cast.
     return version;
@@ -66,7 +72,9 @@ class VersionUtil{
    * @return The semantic version, or null if it could not be parsed.
   */
   public static function parseVersion(input:Dynamic):Null<thx.semver.Version>{
-    if (input == null) return null;
+    if (input == null)
+      return null;
+
     if (Std.isOfType(input, String)){
       var inputStr:String = input;
       var version:thx.semver.Version = inputStr;

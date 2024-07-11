@@ -1,4 +1,5 @@
 package engine.internal.util.macro;
+
 #if !display
   class GitCommit{
     /**
@@ -6,24 +7,24 @@ package engine.internal.util.macro;
     */
     public static macro function getGitCommitHash():haxe.macro.Expr.ExprOf<String>{
       #if !display
-      var pos = haxe.macro.Context.currentPos(); // Get the current line number.
-      var process = new sys.io.Process('git', ['rev-parse', 'HEAD']);
-      if (process.exitCode() != 0){
-        var message = process.stderr.readAll().toString();
-        haxe.macro.Context.info('[WARN] Could not determine current git commit; is this a proper Git repository?', pos);
-      }
+        var pos = haxe.macro.Context.currentPos(); // Get the current line number.
+        var process = new sys.io.Process('git', ['rev-parse', 'HEAD']);
+        if (process.exitCode() != 0){
+          var message = process.stderr.readAll().toString();
+          haxe.macro.Context.info('[WARN] Could not determine current git commit; is this a proper Git repository?', pos);
+        }
 
-      var commitHash:String = process.stdout.readLine(); // read the output of the process
-      var commitHashSplice:String = commitHash.substr(0, 7);
-      trace('Git Commit ID: ${commitHashSplice}');
+        var commitHash:String = process.stdout.readLine(); // read the output of the process
+        var commitHashSplice:String = commitHash.substr(0, 7);
+        trace('Git Commit ID: ${commitHashSplice}');
 
-      // Generates a string expression
-      return macro $v{commitHashSplice};
+        // Generates a string expression
+        return macro $v{commitHashSplice};
       #else
-      // `#if display` is used for code completion. In this case returning an
-      // empty string is good enough; We don't want to call git on every hint.
-      var commitHash:String = "";
-      return macro $v{commitHashSplice};
+        // `#if display` is used for code completion. In this case returning an
+        // empty string is good enough; We don't want to call git on every hint.
+        var commitHash:String = "";
+        return macro $v{commitHashSplice};
       #end
     }
 
@@ -32,23 +33,23 @@ package engine.internal.util.macro;
     */
     public static macro function getGitBranch():haxe.macro.Expr.ExprOf<String>{
       #if !display // Get the current line number.
-      var pos = haxe.macro.Context.currentPos();
-      var branchProcess = new sys.io.Process('git', ['rev-parse', '--abbrev-ref', 'HEAD']);
-      if (branchProcess.exitCode() != 0){
-        var message = branchProcess.stderr.readAll().toString();
-        haxe.macro.Context.info('[WARN] Could not determine current git commit; is this a proper Git repository?', pos);
-      }
+        var pos = haxe.macro.Context.currentPos();
+        var branchProcess = new sys.io.Process('git', ['rev-parse', '--abbrev-ref', 'HEAD']);
+        if (branchProcess.exitCode() != 0){
+          var message = branchProcess.stderr.readAll().toString();
+          haxe.macro.Context.info('[WARN] Could not determine current git commit; is this a proper Git repository?', pos);
+        }
 
-      var branchName:String = branchProcess.stdout.readLine();
-      trace('Git Branch Name: ${branchName}');
+        var branchName:String = branchProcess.stdout.readLine();
+        trace('Git Branch Name: ${branchName}');
 
-      // Generates a string expression
-      return macro $v{branchName};
+        // Generates a string expression
+        return macro $v{branchName};
       #else
-      // `#if display` is used for code completion. In this case returning an
-      // empty string is good enough; We don't want to call git on every hint.
-      var branchName:String = "";
-      return macro $v{branchName};
+        // `#if display` is used for code completion. In this case returning an
+        // empty string is good enough; We don't want to call git on every hint.
+        var branchName:String = "";
+        return macro $v{branchName};
       #end
     }
 
@@ -57,27 +58,27 @@ package engine.internal.util.macro;
     */
     public static macro function getGitHasLocalChanges():haxe.macro.Expr.ExprOf<Bool>{
       #if !display // Get the current line number.
-      var pos = haxe.macro.Context.currentPos();
-      var branchProcess = new sys.io.Process('git', ['status', '--porcelain']);
-      if (branchProcess.exitCode() != 0){
-        var message = branchProcess.stderr.readAll().toString();
-        haxe.macro.Context.info('[WARN] Could not determine current git commit; is this a proper Git repository?', pos);
-      }
+        var pos = haxe.macro.Context.currentPos();
+        var branchProcess = new sys.io.Process('git', ['status', '--porcelain']);
+        if (branchProcess.exitCode() != 0){
+          var message = branchProcess.stderr.readAll().toString();
+          haxe.macro.Context.info('[WARN] Could not determine current git commit; is this a proper Git repository?', pos);
+        }
 
-      var output:String = '';
-      try{
-        output = branchProcess.stdout.readLine();
-      }catch (e){
-        if (e.message == 'Eof'){
-          // Do nothing.
-          // Eof = No output.
-        }else
-          throw e; // Rethrow other exceptions.
-      }
-      trace('Git Status Output: ${output}');
-      return macro $v{output.length > 0}; // Generates a string expression
+        var output:String = '';
+        try{
+          output = branchProcess.stdout.readLine();
+        }catch (e){
+          if (e.message == 'Eof'){
+            // Do nothing.
+            // Eof = No output.
+          }else
+            throw e; // Rethrow other exceptions.
+        }
+        trace('Git Status Output: ${output}');
+        return macro $v{output.length > 0}; // Generates a string expression
       #else // `#if display` is used for code completion. In this case we just assume true.
-      return macro $v{true};
+        return macro $v{true};
       #end
     }
   }

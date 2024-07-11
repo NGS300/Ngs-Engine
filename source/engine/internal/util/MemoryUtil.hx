@@ -1,4 +1,5 @@
 package engine.internal.util;
+
 /**
  * Utilities for working with the garbage collector.
  * HXCPP is built on Immix.

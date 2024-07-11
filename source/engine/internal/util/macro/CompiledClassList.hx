@@ -1,5 +1,7 @@
 package engine.internal.util.macro;
+
 import haxe.rtti.Meta;
+
 /**
  * A complement to `ClassMacro`. See `ClassMacro` for more information.
 */
@@ -35,7 +37,7 @@ class CompiledClassList{
   public static function get(request:String):List<Class<Dynamic>>{
     if (classLists == null) init();
     if (!classLists.exists(request)){
-      trace('[WARNING] Class list $request not properly generated. Please debug the build macro.');
+      Debug.log('[WARNING] Class list $request not properly generated. Please debug the build macro.', 'warn');
       classLists.set(request, new List()); // Make the error only appear once.
     }
     return classLists.get(request);

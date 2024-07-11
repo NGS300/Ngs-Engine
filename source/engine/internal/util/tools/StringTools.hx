@@ -1,8 +1,17 @@
 package engine.internal.util.tools;
+
+using StringTools;
+
 /**
  * A static extension which provides utility functions for Strings.
 */
 class StringTools{
+
+  @:keep public static function parse_float(x:String):Null<Float>
+		return untyped __global__.__hxcpp_parse_float(x);
+
+  public static function isNumeric(s:String):Null<Bool>
+    return parse_float(s) != null;
   /**
    * Converts a string to title case. For example, "hello world" becomes "Hello World".
    * @param value The string to convert.
@@ -49,18 +58,16 @@ class StringTools{
    * @param value The string to convert.
    * @return The converted string.
   */
-  public static function toLowerKebabCase(value:String):String{
+  public static function toLowerKebabCase(value:String):String
     return value.toLowerCase().replace(' ', '-');
-  }
 
   /**
    * Converts a string to upper kebab case, aka screaming kebab case. For example, "Hello World" becomes "HELLO-WORLD".
    * @param value The string to convert.
    * @return The converted string.
   */
-  public static function toUpperKebabCase(value:String):String{
+  public static function toUpperKebabCase(value:String):String
     return value.toUpperCase().replace(' ', '-');
-  }
 
   /**
    * The regular expression to sanitize strings.
@@ -72,9 +79,8 @@ class StringTools{
    * @param value The string to sanitize.
    * @return The sanitized string.
   */
-  public static function sanitize(value:String):String{
+  public static function sanitize(value:String):String
     return SANTIZE_REGEX.replace(value, '');
-  }
 
   /**
    * Parses the string data as JSON and returns the resulting object.
@@ -84,7 +90,6 @@ class StringTools{
    * @param value The
    * @return The parsed object.
   */
-  public static function parseJSON(value:String):Dynamic{
+  public static function parseJSON(value:String):Dynamic
     return SerializerUtil.fromJSON(value);
-  }
 }

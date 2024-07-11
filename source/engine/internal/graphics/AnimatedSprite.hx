@@ -1,6 +1,5 @@
 package engine.internal.graphics;
 class AnimatedSprite extends Sprite{
-    private final rate:Float = 30;
     /**
      * @param image Image name
      * @param lib Library name
@@ -21,12 +20,13 @@ class AnimatedSprite extends Sprite{
      * @param fps Animation Frame per sec.
      * @param looped Animation isLooped ?
     */
-    public function anima(name:String, prefix:String, ?fps:Float, looped = true):Void{
+    public function animaPrefix(name:String, prefix:String, ?fps:Float, looped = true):Void{
         var result:Float = 0;
         if (fps == 0 || fps == null)
-            result = 30;
+            result = 24;
         else
             result = fps;
+
         animation.addByPrefix(name, prefix, result, looped);
     }
 
@@ -71,16 +71,16 @@ class AnimatedSprite extends Sprite{
     }
 
     /**
-     * Animation CurFrame
+     * Animation Current Frame
     */
-    public function curFrame(?frameInt:Int):Int{
+    public function cur_frame(?int:Int):Int{
         var item = animation.curAnim.curFrame;
         var result:Dynamic;
-        var type:Null<Int> = frameInt;
+        var type:Null<Int> = int;
         if (type == null)
             result = item;
         else
-            result = (item = frameInt);
+            result = (item = int);
 
         return result;
     }
